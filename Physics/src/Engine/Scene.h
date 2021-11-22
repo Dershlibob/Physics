@@ -51,7 +51,6 @@ public:
 	static shared_ptr<Entity> Instantiate()
 	{
 		Scene::GetEntities()->push_back(make_shared<Entity>());
-
 		return Scene::GetEntities()->back();
 	}
 

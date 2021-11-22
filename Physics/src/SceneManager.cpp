@@ -39,7 +39,7 @@ void SceneManager::Update(float dt)
 			if (g->nextEntitySpawnTime + l->startTime < glfwGetTime())
 			{
 				g->nextEntitySpawnTime += random(0, 2);
-				Enemy* e = (Enemy*)Instantiate(Enemy()).get();
+				shared_ptr<Enemy> e = Instantiate(Enemy());
 				e->SetModel(ModelManager::getModel("cube"));
 				e->position.x = random(position.x - g->spawnArea, position.x + g->spawnArea);
 				e->position.y = 0.0f;
@@ -54,7 +54,14 @@ void SceneManager::Update(float dt)
 		{
 			for (int j = 0; j < g->enemies.size(); ++j)
 			{
-				g->enemies[j]->Flocking(&g->enemies);
+				if (g->enemies[j].use_count() == 1)
+				{
+					g->enemies.erase(g->enemies.begin() + j);
+				}
+				else
+				{
+					g->enemies[j]->Flocking(&g->enemies);
+				}
 			}
 		}
 	}

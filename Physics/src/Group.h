@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "memory"
 
 #include "glm.hpp"
 
@@ -16,5 +17,5 @@ struct Group
 	int entitiesSpawned = 0;
 	float nextEntitySpawnTime = 0.0f;
 
-	std::vector<Enemy*> enemies;
+	std::vector<std::shared_ptr<Enemy>> enemies;
 };

@@ -58,16 +58,16 @@ public:
 	void ImmediateDestroy();
 
 	template <typename T>
-	shared_ptr<Entity> Instantiate(T)
+	shared_ptr<T> Instantiate(T)
 	{ // Must be a class derived from the Entity class.
 		vector<shared_ptr<Entity>>* e = Scene::GetEntities();
 		e->push_back(make_shared<T>());
 	
-		return e->back();
+		return std::dynamic_pointer_cast<T>(e->back());
 	}
 
 	template <typename T>
-	shared_ptr<Entity> Instantiate(T, Model* model, glm::vec3 _position)
+	shared_ptr<T> Instantiate(T, Model* model, glm::vec3 _position)
 	{ // Must be a class derived from the Entity class.
 		vector<shared_ptr<Entity>>* e = Scene::GetEntities();
 		e->push_back(make_shared<T>());
@@ -76,7 +76,7 @@ public:
 		{
 			e->back()->SetModel(model);
 		}
-		return e->back();
+		return std::dynamic_pointer_cast<T>(e->back());
 	}
 
 	void SetModel(Model* m)

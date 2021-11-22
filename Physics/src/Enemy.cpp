@@ -55,7 +55,7 @@ void Enemy::Collision(Collider* other)
 	}
 }
 
-void Enemy::Flocking(std::vector<Enemy*>* enemies)
+void Enemy::Flocking(std::vector<std::shared_ptr<Enemy>>* enemies)
 {
 	glm::vec3 alignment  =  ComputeAlignment(enemies);
 	glm::vec3 cohesion   =  ComputeCohesion(enemies);
@@ -70,14 +70,14 @@ void Enemy::Flocking(std::vector<Enemy*>* enemies)
 	MoveTo((velocity * moveSpeed) + position);
 }
 
-glm::vec3 Enemy::ComputeAlignment(std::vector<Enemy*>* enemies)
+glm::vec3 Enemy::ComputeAlignment(std::vector<std::shared_ptr<Enemy>>* enemies)
 {
 	glm::vec3 v(0.0f);
 	int groupSize = enemies->size();
 
-	for (Enemy* e : *enemies)
+	for (std::shared_ptr<Enemy> e : *enemies)
 	{
-		if (e != this)
+		if (e->index != index)
 		{
 			v.x += e->velocity.x;
 			v.z += e->velocity.z;
@@ -96,25 +96,29 @@ glm::vec3 Enemy::ComputeAlignment(std::vector<Enemy*>* enemies)
 	return v;
 }
 
-glm::vec3 Enemy::ComputeCohesion(std::vector<Enemy*>* enemies)
+glm::vec3 Enemy::ComputeCohesion(std::vector<std::shared_ptr<Enemy>>* enemies)
 {
 	glm::vec3 v(0.0f);
 	int groupSize = enemies->size();
-	float distance = 0;
+	float distance = 0;			
+	//shared_ptr<Enemy> e = *enemies->at(0).use_count();
 
-	for (Enemy* e : *enemies)
+	for (int i = 0; i < enemies->size(); ++i)
 	{
-		if (e != this)
+		Enemy* e = enemies->at(i).get();
+		if (e->index != index)
 		{
-			float d = glm::length(e->position - position) - (e->GetCollider()->getRadius() + GetCollider()->getRadius());
-			if (d > 1.5f && d < 2.0f)
 			{
-				if (d > distance)
+				float d = glm::length(e->position - position) - (e->GetCollider()->getRadius() + GetCollider()->getRadius());
+				if (d > 1.5f && d < 2.0f)
 				{
-					distance = d;
+					if (d > distance)
+					{
+						distance = d;
+					}
+					v.x += e->position.x;
+					v.z += e->position.z;
 				}
-				v.x += e->position.x;
-				v.z += e->position.z;
 			}
 		}
 	}
@@ -138,15 +142,15 @@ glm::vec3 Enemy::ComputeCohesion(std::vector<Enemy*>* enemies)
 	return v;
 }
 
-glm::vec3 Enemy::ComputeSeparation(std::vector<Enemy*>* enemies)
+glm::vec3 Enemy::ComputeSeparation(std::vector<std::shared_ptr<Enemy>>* enemies)
 {
 	glm::vec3 v(0.0f);
 	int groupSize = enemies->size();
 	float distance = INT_MAX;
 
-	for (Enemy* e : *enemies)
+	for (std::shared_ptr<Enemy> e : *enemies)
 	{
-		if (e != this)
+		if (e->index != index)
 		{
 			float d = glm::length(e->position - position) - (e->GetCollider()->getRadius() + GetCollider()->getRadius());
 			if (d < 1.0f)

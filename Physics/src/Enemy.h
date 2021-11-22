@@ -34,21 +34,16 @@ public:
 
 	void MoveTo(glm::vec3 destination);
 
-	void Flocking(std::vector<Enemy*>* enemies);
+	void Flocking(std::vector<std::shared_ptr<Enemy>>* enemies);
 private:
 
-	glm::vec3 ComputeAlignment(std::vector<Enemy*>* enemies);
-	glm::vec3 ComputeCohesion(std::vector<Enemy*>* enemies);
-	glm::vec3 ComputeSeparation(std::vector<Enemy*>* enemies);
+	glm::vec3 ComputeAlignment(std::vector<std::shared_ptr<Enemy>>* enemies);
+	glm::vec3 ComputeCohesion(std::vector<std::shared_ptr<Enemy>>* enemies);
+	glm::vec3 ComputeSeparation(std::vector<std::shared_ptr<Enemy>>* enemies);
 	float cohesionFactor, separationFactor;
 public:
 
 	glm::quat orientation;
-
 	int lastShootTime, nextShootTime;
-
-
-
 	bool bStartMoving = false;
-
 };
