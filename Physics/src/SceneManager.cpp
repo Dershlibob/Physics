@@ -23,7 +23,7 @@ void SceneManager::Start()
 {
 	Level level;
 
-	level.groups.push_back(Group(glm::vec3(-25.0f, 0.0f, -10.0f), 20.0f, 5));
+	level.groups.push_back(Group(glm::vec3(0.0f, 0.0f, 0.0f), 20.0f, 20));
 
 	levels.push_back(level);
 }
@@ -34,6 +34,7 @@ void SceneManager::Update(float dt)
 	for (int i = 0; i < l->groups.size(); ++i)
 	{
 		Group* g = &l->groups[i];
+		// Spawns the enemies.
 		if (g->entitiesSpawned < g->groupSize)
 		{
 			if (g->nextEntitySpawnTime + l->startTime < glfwGetTime())
@@ -45,24 +46,25 @@ void SceneManager::Update(float dt)
 				e->position.y = 0.0f;
 				e->position.z = random(position.z - g->spawnArea, position.z + g->spawnArea);
 				e->yaw = random(0.0f, 360.0f);
-				g->enemies.push_back(e);
+				g->Spawn(e);
 
 				++g->entitiesSpawned;
+				if (g->entitiesSpawned == g->groupSize)
+				{
+					g->groupPos = glm::vec3(50.0f, 0.0f, 50.0f);
+				}
 			}
 		}
-		if (g->enemies.size() > 1)
+		for (int j = 0; j < g->enemies.size(); ++j)
 		{
-			for (int j = 0; j < g->enemies.size(); ++j)
+			if (g->enemies[j].use_count() == 1)
 			{
-				if (g->enemies[j].use_count() == 1)
-				{
-					g->enemies.erase(g->enemies.begin() + j);
-				}
-				else
-				{
-					g->enemies[j]->Flocking(&g->enemies);
-				}
+				g->enemies.erase(g->enemies.begin() + j);
+				g->OnEnemyDestroy();
 			}
 		}
+		// enemy AI behaviours.
+		g->Idle();
+		g->Attacking();
 	}
 }

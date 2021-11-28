@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\Engine\BT\Node.cpp" />
     <ClCompile Include="src\Engine\Camera.cpp" />
     <ClCompile Include="src\Engine\Character.cpp" />
     <ClCompile Include="src\Engine\Collision.cpp" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\Bullet.h" />
+    <ClInclude Include="src\Engine\BT\Node.h" />
     <ClInclude Include="src\Engine\Camera.h" />
     <ClInclude Include="src\Engine\Character.h" />
     <ClInclude Include="src\Engine\Collision.h" />
