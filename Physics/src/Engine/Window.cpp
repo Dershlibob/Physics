@@ -10,7 +10,7 @@ Window::Window()
 
 	/* Create a windowed mode window and its OpenGL context */
 
-	window = glfwCreateWindow(1280, 720, "Space Defender", NULL, NULL);
+	window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "Space Defender", NULL, NULL);
 	glfwSetWindowPos(window, 500, 100);
 
 	if (!window)

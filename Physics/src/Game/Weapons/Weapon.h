@@ -5,8 +5,7 @@
 #include "Engine/ModelManager.h"
 #include "Engine/Scene.h"
 
-#include "Bullet.h"
-#include "Enemy.h"
+#include "Projectiles/Bullet.h"
 
 struct Weapon;
 
@@ -62,24 +61,4 @@ public:
 	virtual Entity* Shoot() = 0;
 };
 
-struct BasicWeapon : public Weapon
-{
-	BasicWeapon(Entity* _parent):
-		Weapon(_parent)
-	{
-		SetFireMode(new AutomaticMode());
-	}
 
-	Entity* Shoot() override;
-};
-
-struct ShotgunWeapon : public Weapon
-{
-	ShotgunWeapon(Entity* _parent):
-		Weapon(_parent)
-	{
-		SetFireMode(new SemiautomaticMode());
-	}
-
-	Entity* Shoot() override;
-};

@@ -10,7 +10,6 @@ public:
 
 	~Bullet()
 	{
-
 	}
 
 	void Update(float dt)			override;
@@ -24,16 +23,5 @@ public:
 	float spawnTime = 0.0f;
 	float lifeTime = 1.5f;
 	float speed = 20.0f;
-};
-
-class BigBullet : public Bullet
-{
-public:
-	void Start() override;
-};
-
-class SmallBullet : public Bullet
-{
-public:
-	void Start() override;
+	int damage = 1;
 };

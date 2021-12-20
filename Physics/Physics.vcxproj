@@ -19,53 +19,71 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Background.cpp" />
-    <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\Game\Background.cpp" />
+    <ClCompile Include="src\Game\basicEnemy.cpp" />
+    <ClCompile Include="src\Game\BigEnemy.cpp" />
+    <ClCompile Include="src\Game\Weapons\Projectiles\Bullet.cpp" />
+    <ClCompile Include="src\Game\EnemyAI.cpp" />
     <ClCompile Include="src\Engine\BT\Node.cpp" />
     <ClCompile Include="src\Engine\Camera.cpp" />
     <ClCompile Include="src\Engine\Character.cpp" />
     <ClCompile Include="src\Engine\Collision.cpp" />
-    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\Game\Enemy.cpp" />
     <ClCompile Include="src\Engine\Entity.cpp" />
-    <ClCompile Include="src\Group.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Engine\Texture.cpp" />
+    <ClCompile Include="src\Engine\UI.cpp" />
+    <ClCompile Include="src\Game\Group.cpp" />
+    <ClCompile Include="src\Game\Level.cpp" />
+    <ClCompile Include="src\Game\main.cpp" />
     <ClCompile Include="src\Engine\Mesh.cpp" />
     <ClCompile Include="src\Engine\Model.cpp" />
-    <ClCompile Include="src\PlayerCharacter.cpp" />
-    <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\Game\Minimap.cpp" />
+    <ClCompile Include="src\Game\PlayerCharacter.cpp" />
+    <ClCompile Include="src\Game\SceneManager.cpp" />
     <ClCompile Include="src\Engine\Shader.cpp" />
     <ClCompile Include="src\Engine\Scene.cpp" />
     <ClCompile Include="src\Engine\Shapes.cpp" />
-    <ClCompile Include="src\Weapon.cpp" />
+    <ClCompile Include="src\Game\Weapons\Weapon.cpp" />
     <ClCompile Include="src\Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Background.h" />
-    <ClInclude Include="src\Bullet.h" />
+    <ClInclude Include="src\Game\Background.h" />
+    <ClInclude Include="src\Game\BasicEnemy.h" />
+    <ClInclude Include="src\Game\Weapons\Basic.h" />
+    <ClInclude Include="src\Game\BigEnemy.h" />
+    <ClInclude Include="src\Game\Weapons\Projectiles\BigBullet.h" />
+    <ClInclude Include="src\Game\Weapons\Projectiles\Bullet.h" />
+    <ClInclude Include="src\Game\EnemyAI.h" />
     <ClInclude Include="src\Engine\BT\Node.h" />
     <ClInclude Include="src\Engine\Camera.h" />
     <ClInclude Include="src\Engine\Character.h" />
     <ClInclude Include="src\Engine\Collision.h" />
-    <ClInclude Include="src\Enemy.h" />
+    <ClInclude Include="src\Game\Enemy.h" />
     <ClInclude Include="src\Engine\Entity.h" />
     <ClInclude Include="src\Engine\Mesh.h" />
     <ClInclude Include="src\Engine\Model.h" />
     <ClInclude Include="src\Engine\ModelManager.h" />
-    <ClInclude Include="src\Group.h" />
-    <ClInclude Include="src\PlayerCharacter.h" />
-    <ClInclude Include="src\SceneManager.h" />
+    <ClInclude Include="src\Engine\Texture.h" />
+    <ClInclude Include="src\Engine\UI.h" />
+    <ClInclude Include="src\Game\Group.h" />
+    <ClInclude Include="src\Game\Level.h" />
+    <ClInclude Include="src\Game\Minimap.h" />
+    <ClInclude Include="src\Game\PlayerCharacter.h" />
+    <ClInclude Include="src\Game\SceneManager.h" />
     <ClInclude Include="src\Engine\Shader.h" />
     <ClInclude Include="src\Engine\Scene.h" />
     <ClInclude Include="src\Engine\Shapes.h" />
-    <ClInclude Include="src\Weapon.h" />
+    <ClInclude Include="src\Game\Weapons\Projectiles\SmallBullet.h" />
+    <ClInclude Include="src\Game\Weapons\Shotgun.h" />
+    <ClInclude Include="src\Game\Weapons\Weapon.h" />
     <ClInclude Include="src\Engine\stb_image.h" />
     <ClInclude Include="src\Engine\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shader\Basic.shader" />
     <None Include="src\Shader\Instancing.shader" />
     <None Include="src\Shader\Lighting.shader" />
     <None Include="src\Shader\Model.shader" />
+    <None Include="src\Shader\UI.shader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -121,15 +139,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -137,7 +159,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include;$(ProjectDir)src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,7 +176,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include;$(ProjectDir)src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,7 +193,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include;$(ProjectDir)src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -188,7 +210,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Linking\include\include;$(ProjectDir)src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

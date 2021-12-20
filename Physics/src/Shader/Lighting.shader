@@ -62,6 +62,6 @@ void main()
 	// Resulting colour.
 	vec4 Colour = texture(texture_diffuse1, TexCoords);
 	vec3 frag = Colour.xyz;
-	vec3 result = (ambient + diffuse + specular) * frag;
+	vec3 result = (ambient + diffuse) * frag;
 	FragColour = vec4(result, 1.0);
 }

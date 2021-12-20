@@ -35,6 +35,7 @@ public:
 				return e->at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	static std::vector<shared_ptr<Entity>>* GetEntities()

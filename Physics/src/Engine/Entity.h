@@ -9,9 +9,7 @@
 #include "Camera.h"
 #include "Collision.h"
 
-
 class Scene;
-class ShotType;
 
 class Entity
 {
@@ -19,13 +17,9 @@ private:
 	Model* model;
 	Shader* shader;
 	Camera* cam;
-	ShotType* st;
 	Collider* collider;
 
 public:
-	int health = 100;
-	int Damage = 1;
-
 	bool bDestroy = false;
 	bool bStartFuncCalled = false;
 
@@ -38,8 +32,7 @@ public:
 	Collider* GetCollider(){ 
 		if (collider)
 			return collider;
-		else
-			return nullptr;
+		return nullptr;
 	}
 
 	Entity();
@@ -48,6 +41,7 @@ public:
 	virtual void Start() {}
 	virtual void Update(float dt) {}
 	virtual void Collision(Collider* other) {}
+	virtual void OnDestroy() {}
 
 	void Draw();
 	void CheckCollisions();
@@ -62,7 +56,7 @@ public:
 	{ // Must be a class derived from the Entity class.
 		vector<shared_ptr<Entity>>* e = Scene::GetEntities();
 		e->push_back(make_shared<T>());
-	
+		
 		return std::dynamic_pointer_cast<T>(e->back());
 	}
 
@@ -78,6 +72,8 @@ public:
 		}
 		return std::dynamic_pointer_cast<T>(e->back());
 	}
+
+	void SetModel(std::string name);
 
 	void SetModel(Model* m)
 	{

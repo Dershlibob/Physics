@@ -9,14 +9,14 @@
 
 using namespace std;
 
-struct Vertex
+struct ModelVertex
 {
 	glm::vec3 Position;
 	glm::vec3 Normal;
 	glm::vec2 TexCoords;
 };
 
-struct Texture
+struct ModelTexture
 {
 	unsigned int id;
 	string type;
@@ -26,12 +26,12 @@ struct Texture
 class Mesh
 {
 public:
-	vector<Vertex> vertices;
+	vector<ModelVertex> vertices;
 	vector<unsigned int> indices;
-	vector<Texture> textures;
+	vector<ModelTexture> textures;
 
-	Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
-		vector<Texture> textures);
+	Mesh(vector<ModelVertex> vertices, vector<unsigned int> indices,
+		vector<ModelTexture> textures);
 	void Draw(Shader& shader);
 private:
 	unsigned int VAO, VBO, EBO;

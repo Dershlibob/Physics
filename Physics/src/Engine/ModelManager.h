@@ -17,18 +17,19 @@ private:
 
 public:
 
-	static std::vector<Model*>& getModels()
+	static std::vector<Model*>& GetModels()
 	{
 		return ModelManager::get().models;
 	}
 
-	static Model* getModel(std::string name)
+	static Model* GetModel(std::string name)
 	{
-		for (int i = 0; i < ModelManager::getModels().size(); ++i)
+		auto m = ModelManager::GetModels();
+		for (int i = 0; i < m.size(); ++i)
 		{
-			if (ModelManager::getModels().at(i)->GetName() == name)
+			if (m.at(i)->GetName() == name)
 			{
-				return ModelManager::getModels().at(i);
+				return m.at(i);
 			}
 		}
 		std::cout << "Model name '" << name << "' doesn't exist" << std::endl;
@@ -37,9 +38,9 @@ public:
 
 	static Model* LoadModel(std::string location)
 	{
-		ModelManager::getModels().push_back(new Model(location));
+		ModelManager::GetModels().push_back(new Model(location));
 
-		return ModelManager::getModels().back();
+		return ModelManager::GetModels().back();
 	}
 
 	static ModelManager& get()

@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 
-enum class State
+class Enemy;
+
+enum class NodeState
 {
 	SUCCESS,
 	RUNNING,
@@ -9,14 +11,6 @@ enum class State
 };
 
 class CompositeNode;
-
-class Enemy
-{
-public:
-	CompositeNode* root;
-	bool bIsAlive = false;
-
-};
 
 class Node
 {
@@ -33,58 +27,58 @@ public:
 		return owner;
 	}
 
-	virtual State Tick() = 0;
+	virtual NodeState Tick() = 0;
 };
 
 class CompositeNode : public Node
 {
 	std::vector<Node*> children;
 public:
-	void AddChild(Node* n);
+	Node* AddChild(Node* n);
 
 	std::vector<Node*>& GetChildren()
 	{
 		return children;
 	}
 
-	State Tick() override
+	NodeState Tick() override
 	{
 		for (int i = 0; i < children.size(); ++i)
 		{
 			children[i]->Tick();
 		}
-		return State::SUCCESS;
+		return NodeState::SUCCESS;
 	}
 
 };
 
 class Sequence : public CompositeNode
 {
-	State Tick() override
+	NodeState Tick() override
 	{
 		std::vector<Node*> children = GetChildren();
 		for (int i = 0; i < children.size(); ++i)
 		{
-			State result = children[i]->Tick();
-			if (result == State::FAILURE || result == State::RUNNING)
+			NodeState result = children[i]->Tick();
+			if (result == NodeState::FAILURE || result == NodeState::RUNNING)
 			{
 				return result;
 			}
 		}
-		return State::SUCCESS;
+		return NodeState::SUCCESS;
 	}
 };
 
 class Fallback : public CompositeNode
 {
-	State Tick() override
+	NodeState Tick() override
 	{
-		State result;
+		NodeState result;
 		std::vector<Node*> children = GetChildren();
 		for (int i = 0; i < children.size(); ++i)
 		{
 			result = children[i]->Tick();
-			if (result == State::SUCCESS)
+			if (result == NodeState::SUCCESS)
 			{
 				return result;
 			}
@@ -95,25 +89,22 @@ class Fallback : public CompositeNode
 
 class Leaf : public CompositeNode
 {
-	Enemy* Owner;
 public:
-
 	Leaf(Node* Condition, Node* Action, Enemy* e)
 	{
-		Owner = e;
 		AddChild(Condition);
 		AddChild(Action);
 		GetChildren().at(0)->SetOwner(e);
 		GetChildren().at(1)->SetOwner(e);
 	}
 
-	State Tick() override
+	NodeState Tick() override
 	{
-		State result;
+		NodeState result;
 		std::vector<Node*> children = GetChildren();
 
 		result = children[0]->Tick();
-		if (result == State::SUCCESS)
+		if (result == NodeState::SUCCESS)
 		{
 			children[1]->Tick();
 		}

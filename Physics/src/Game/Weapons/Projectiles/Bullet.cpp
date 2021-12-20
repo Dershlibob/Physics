@@ -1,8 +1,10 @@
 #include "Bullet.h"
+
+#include "GLFW/glfw3.h"
+
 #include "Engine/ModelManager.h"
 
-#include "PlayerCharacter.h"
-#include "GLFW/glfw3.h"
+#include "Game/PlayerCharacter.h"
 
 Bullet::Bullet()
 {
@@ -31,17 +33,4 @@ void Bullet::LifeTime()
 void Bullet::SetDirection(PlayerCharacter* p)
 {
 	direction = p->front;
-}
-
-void BigBullet::Start()
-{
-	SetModel(ModelManager::getModel("sphere"));
-	LinearScale(0.8f);
-	speed = 25;
-}
-
-void SmallBullet::Start()
-{
-	SetModel(ModelManager::getModel("sphere"));
-	LinearScale(0.3f);
 }

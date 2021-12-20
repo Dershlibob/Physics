@@ -6,7 +6,7 @@
 #include "Engine/Character.h"
 #include "Engine/Camera.h"
 #include "Engine/Model.h"
-#include "Weapon.h"
+#include "Weapons/Weapon.h"
 
 class Window;
 
@@ -22,6 +22,7 @@ public:
 	void Start()					override;
 	void Update(float dt)			override;
 	void Collision(Collider* other) override;
+	void OnDestroy() override;
 
 	float shootTime = 0.0f, shootInterval = 1.0f;
 

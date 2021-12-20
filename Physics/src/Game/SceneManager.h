@@ -3,25 +3,18 @@
 
 #include "Engine/Entity.h"
 #include "Engine/ModelManager.h"
-#include "Group.h"
+
+#include "Level.h"
 
 class Enemy;
 
-struct Level
-{
-	Level();
-
-	vector<Group> groups;
-	float startTime = 0.0f;
-};
-
 class SceneManager : public Entity
 {
-private:
+public:
 	vector<Level> levels;
 	int CurrentLevel = 0;
 
-public:
+	static int enemiesKilled;
 
 	SceneManager()
 	{
@@ -33,4 +26,6 @@ public:
 
 	bool done = false;
 
+private:
+	int spawnType = 0;
 };

@@ -1,15 +1,18 @@
 #include "Entity.h"
 #include "Scene.h"
+#include "ModelManager.h"
+
+float Entity::dt = 0;
 
 Entity::Entity()
 {
+	model = nullptr;
 	shader = Scene::getShader();
 	cam = Scene::getCamera();
+	collider = nullptr;
 	matScale = glm::mat4(1.0f);
 	matRotation = glm::mat4(1.0f);
-	position = { 0.0f, 0.0f, 0.0f };
-	model = nullptr;
-	collider = nullptr;
+	position = glm::vec3(0.0f);
 
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
@@ -65,13 +68,21 @@ void Entity::CheckCollisions()
 	}
 }
 
+void Entity::SetModel(std::string name)
+{
+	model = ModelManager::GetModel(name);
+	CreateCollider(ColliderType::SPHERICAL); // Temporary
+}
+
 void Entity::CreateCollider(ColliderType type)
 {	// this function must be called AFTER a model has been set for the entity.
+	delete this->collider;
 	collider = new Collider(this, model, type);
 }
 
 void Entity::ImmediateDestroy(shared_ptr<Entity> e)
 {
+	OnDestroy();
 	vector<shared_ptr<Entity>>* eVec = Scene::GetEntities();
 
 	delete e->collider;
@@ -81,6 +92,7 @@ void Entity::ImmediateDestroy(shared_ptr<Entity> e)
 
 void Entity::ImmediateDestroy()
 {
+	OnDestroy();
 	vector<shared_ptr<Entity>>* eVec = Scene::GetEntities();
 
 	delete collider;

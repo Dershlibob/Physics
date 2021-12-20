@@ -8,6 +8,8 @@
 #include "Engine/ModelManager.h"
 
 #include "Enemy.h"
+#include "Weapons/Basic.h"
+#include "Weapons/Shotgun.h"
 
 #define PI 3.14159
 
@@ -35,6 +37,7 @@ void PlayerCharacter::Update(float dt)
 		CurrentWeapon = 1;
 	}
 	weapons[CurrentWeapon]->GetFireMode()->FiringMode();
+
 
 	if (glfwGetKey(window->getWindow(), GLFW_KEY_UP) == GLFW_PRESS)
 		velocity -= front * acceleration * dt;
@@ -86,7 +89,13 @@ void PlayerCharacter::Collision(Collider* other)
 {
 	if (other->parent->tag == "EnemyBullet")
 	{
-		TakeDamage(other->parent->Damage);
-		other->parent->Destroy();
+		Bullet* b = (Bullet*)other->parent;
+		TakeDamage(b->damage);
+		b->Destroy();
 	}
+}
+
+void PlayerCharacter::OnDestroy()
+{
+	
 }
