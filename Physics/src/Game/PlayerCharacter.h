@@ -26,7 +26,7 @@ public:
 
 	float shootTime = 0.0f, shootInterval = 1.0f;
 
-	glm::vec3 right;
+
 
 	bool done = false;
 };

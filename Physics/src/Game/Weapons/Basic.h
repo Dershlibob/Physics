@@ -12,13 +12,22 @@ struct BasicWeapon : public Weapon
 	{
 		SetFireMode(new AutomaticMode());
 	}
+	bool bSwitch = false;
 
 	Entity* Shoot() override
 	{
 		SmallBullet* e = (SmallBullet*)Scene::Instantiate(SmallBullet()).get();
 		e->position = parent->position;
 		e->direction = parent->front;
-
+		if (bSwitch)
+		{
+			e->position = parent->position - parent->front + (parent->right / 2.0f);
+		}
+		else
+		{
+			e->position = parent->position - parent->front - (parent->right / 2.0f);
+		}
+		bSwitch = !bSwitch;
 		return e;
 	}
 };

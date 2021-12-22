@@ -4,10 +4,10 @@
 
 #include "Engine/Scene.h"
 
-#include "PlayerCharacter.h"
-#include "SceneManager.h"
-#include "EnemyAI.h"
-#include "Weapons/Basic.h"
+#include "Game/PlayerCharacter.h"
+#include "Game/SceneManager.h"
+#include "Game/EnemyAI.h"
+#include "Game/Weapons/Basic.h"
 
 static float random(float min, float max)
 {

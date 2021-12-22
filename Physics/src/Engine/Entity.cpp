@@ -19,6 +19,8 @@ Entity::Entity()
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front = glm::normalize(front);
 
+	right = glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f));
+
 	Start();
 }
 

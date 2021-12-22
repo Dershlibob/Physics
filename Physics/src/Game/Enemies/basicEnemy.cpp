@@ -1,11 +1,11 @@
 #include "BasicEnemy.h"
-#include "Weapons/Basic.h"
+#include "Game/Weapons/Basic.h"
 
 void BasicEnemy::Start()
 {
 	weapon = new BasicWeapon(this);
 	SetModel("cube");
-	health = 5;
+	health = 2;
 	tag = "Enemy";
 
 	InitBT();

@@ -6,8 +6,8 @@
 #include "Engine/Scene.h"
 #include "Engine/ModelManager.h"
 
-#include "BasicEnemy.h"
-#include "BigEnemy.h"
+#include "Enemies/BasicEnemy.h"
+#include "Enemies/BigEnemy.h"
 
 int SceneManager::enemiesKilled = 0;
 
@@ -20,8 +20,8 @@ static float random(float min, float max)
 void SceneManager::Start()
 {
 	std::vector<int> e;
-	e.push_back(2);
-	e.push_back(2);
+	e.push_back(10);
+	e.push_back(0);
 	Level level;
 	level.AddGroup(Group(glm::vec3(0.0f, 0.0f, 0.0f), 20.0f, e));
 	

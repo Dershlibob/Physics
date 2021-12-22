@@ -20,7 +20,7 @@
 #include "SceneManager.h"
 #include "Background.h"
 #include "PlayerCharacter.h"
-#include "Enemy.h"
+#include "Enemies/Enemy.h"
 #include "Minimap.h"
 
 using namespace std;

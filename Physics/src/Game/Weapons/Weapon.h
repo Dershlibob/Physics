@@ -11,8 +11,6 @@ struct Weapon;
 
 struct IFireMode
 {
-	IFireMode();
-
 	Weapon* weapon;
 	virtual void FiringMode() = 0;
 

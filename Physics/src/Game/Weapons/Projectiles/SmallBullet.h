@@ -10,5 +10,6 @@ public:
 	{
 		SetModel(ModelManager::GetModel("sphere"));
 		LinearScale(0.3f);
+		damage = 1;
 	}
 };

@@ -5,6 +5,8 @@ class PlayerCharacter;
 
 class Bullet : public Entity
 {
+private:
+
 public:
 	Bullet();
 
@@ -12,8 +14,9 @@ public:
 	{
 	}
 
-	void Update(float dt)			override;
-	void Collision(Collider* other) override;
+	void Update(float dt) override;
+
+	virtual void Trajectory(float dt);
 
 	void SetDirection(PlayerCharacter* p);
 	void LifeTime();

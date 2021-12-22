@@ -17,5 +17,4 @@ void Level::AddGroup(Group g)
 			numOfEnemies += groups[i].enemyamounts[j];
 		}
 	}
-	std::cout << "num: " << numOfEnemies << std::endl;
 }

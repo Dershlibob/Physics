@@ -9,8 +9,8 @@
 #include "Engine/BT/Node.h"
 #include "Engine/Character.h"
 
-#include "Group.h"
-#include "Weapons/Weapon.h"
+#include "Game/Group.h"
+#include "Game/Weapons/Weapon.h"
 
 class PlayerCharacter;
 

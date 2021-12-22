@@ -18,11 +18,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	}
 }
 
-IFireMode::IFireMode()
-{
-
-}
-
 Weapon::Weapon(Entity* _parent)
 {
 	parent = _parent;
@@ -44,16 +39,6 @@ void AutomaticMode::FiringMode()
 				nextShotTime = fireTime + fireInterval;
 
 				Entity* bullet = weapon->Shoot();
-
-				if (bSwitch)
-				{
-					bullet->position = pc->position - pc->front + (pc->right / 2.0f);
-				}
-				else
-				{
-					bullet->position = pc->position - pc->front - (pc->right / 2.0f);
-				}
-				bSwitch = !bSwitch;
 				bullet->tag = "AllyBullet";
 			}
 		}

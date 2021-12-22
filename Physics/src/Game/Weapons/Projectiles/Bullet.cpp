@@ -9,17 +9,18 @@
 Bullet::Bullet()
 {
 	spawnTime = glfwGetTime();
+	//tag = "AllyBullet";
 }
 
 void Bullet::Update(float dt)
 {
-	position -= direction * speed * dt;
+	Trajectory(dt);
 	LifeTime();
 }
 
-void Bullet::Collision(Collider* other)
+void Bullet::Trajectory(float dt)
 {
-
+	position -= direction * speed * dt;
 }
 
 void Bullet::LifeTime()

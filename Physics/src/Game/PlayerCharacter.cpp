@@ -7,9 +7,10 @@
 #include "Engine/Scene.h"
 #include "Engine/ModelManager.h"
 
-#include "Enemy.h"
+#include "Enemies/Enemy.h"
 #include "Weapons/Basic.h"
 #include "Weapons/Shotgun.h"
+#include "Weapons/Special.h"
 
 #define PI 3.14159
 
@@ -24,6 +25,7 @@ void PlayerCharacter::Start()
 
 	weapons.push_back(new BasicWeapon(this));
 	weapons.push_back(new ShotgunWeapon(this));
+	weapons.push_back(new SpecialWeapon(this));
 }
 
 void PlayerCharacter::Update(float dt)
@@ -35,6 +37,10 @@ void PlayerCharacter::Update(float dt)
 	if (glfwGetKey(window->getWindow(), GLFW_KEY_2) == GLFW_PRESS)
 	{
 		CurrentWeapon = 1;
+	}
+	if (glfwGetKey(window->getWindow(), GLFW_KEY_3) == GLFW_PRESS)
+	{
+		CurrentWeapon = 2;
 	}
 	weapons[CurrentWeapon]->GetFireMode()->FiringMode();
 
